@@ -13,7 +13,7 @@ function direccionar() {
   location.href = "../index.html"
 }
 
-function inicio(){
+function inicio() {
   if (obtener == "") {
   } else if (obtener == null) {
   } else {
@@ -21,13 +21,13 @@ function inicio(){
     obtener = `<a href="../html/usuario.html">${obtener}</a>`;
     document.getElementById("sesion").innerHTML = obtener;
   }
-  
+
   if (document.getElementById("bienvenida1") != null) {
     document.getElementById("bienvenida1").innerHTML = `Bienvenido ${temporal}`
   }
 }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 function validarFormulario() {
 
@@ -290,7 +290,7 @@ function cerrarSesion() {
 function cerrarSesionButton() {
   document.getElementById("sesion").innerHTML = `<a href=""></a>`;
   localStorage.removeItem("Sesion");
-  location.href= "../index.html";
+  location.href = "../index.html";
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -311,18 +311,18 @@ function mostrar() {
 function ocultarymostrar() {
   let x = document.getElementById("Div");
   if (x.style.display === "none") {
-      x.style.display = "block";
+    x.style.display = "block";
   } else {
-      x.style.display = "none";
+    x.style.display = "none";
   }
 }
 
 function botonlogout() {
-  if (document.getElementById("logout") != null){
+  if (document.getElementById("logout") != null) {
     let boton = document.getElementById("logout")
-    if(obtener == null){
+    if (obtener == null) {
       boton.style.display = "none"
-    }else{
+    } else {
       boton.style.display = "block"
     }
   }
@@ -389,6 +389,74 @@ function validarFormCotizar() {
   }
 }
 
+function deleteTareaCoti(dest) {
+  console.log(dest);
+  let ListaCoti = JSON.parse(localStorage.getItem("ListaCoti"));
+  for (let i = 0; i < ListaCoti.length; i++) {
+
+    let dest = ListaCoti[i].dest;
+    let dateIni = ListaCoti[i].dateIni;
+    let dateFin = ListaCoti[i].dateFin;
+    let viajeros = ListaCoti[i].viajeros;
+    let vuelo = ListaCoti[i].vuelo;
+    let transporte = ListaCoti[i].transporte;
+    let precioDestino = ListaCoti[i].PRECIODESTINO;
+    let precioVuelo = ListaCoti[i].PRECIOVUELO;
+    let precioTransp = ListaCoti[i].PRECIOTRANS;
+    let valor_vuelo = ListaCoti[i].valor_vuelo;
+    let valor_transporte = ListaCoti[i].valor_transporte;
+    let total = ListaCoti[i].total;
+  }
+
+  localStorage.setItem("ListaCoti", JSON.stringify(ListaCoti));
+  getListCotizar();
+}
+
+function editarCoti(dest) {
+  console.log(dest);
+  let ListaCoti = JSON.parse(localStorage.getItem("ListaCoti"));
+  for (let i = 0; i < ListaCoti.length; i++) {
+
+    let dest = ListaCoti[i].dest;
+    let dateIni = ListaCoti[i].dateIni;
+    let dateFin = ListaCoti[i].dateFin;
+    let viajeros = ListaCoti[i].viajeros;
+    let vuelo = ListaCoti[i].vuelo;
+    let transporte = ListaCoti[i].transporte;
+    let precioDestino = ListaCoti[i].PRECIODESTINO;
+    let precioVuelo = ListaCoti[i].PRECIOVUELO;
+    let precioTransp = ListaCoti[i].PRECIOTRANS;
+    let valor_vuelo = ListaCoti[i].valor_vuelo;
+    let valor_transporte = ListaCoti[i].valor_transporte;
+    let total = ListaCoti[i].total;
+
+    if (dest == dest && probar == 0) {
+
+      let dest = document.getElementById("dest").value;
+      let dateIni = document.getElementById("dateIni").value;
+      let dateFin = document.getElementById("dateFin").value;
+      let viajeros = document.getElementById("viajeros").value;
+      let vuelo = document.getElementById("vuelo").value;
+      let transporte = document.getElementById("transporte").value;
+
+      ListaCoti[i].dest = dest
+      ListaCoti[i].dateIni = dateIni
+      ListaCoti[i].dateFin = dateFin
+      ListaCoti[i].viajeros = viajeros
+      ListaCoti[i].vuelo = vuelo
+      ListaCoti[i].transporte = transporte
+      probar = 1
+      console.log(probar)
+    }
+    probar = 0
+
+
+  }
+
+  localStorage.setItem("ListaCoti", JSON.stringify(ListaCoti));
+  getLista();
+}
+
 function getListCotizar() {
   let ListaCoti = JSON.parse(localStorage.getItem("ListaCoti"));
   let tasksView = document.getElementById("tabla6");
@@ -435,6 +503,7 @@ function getListCotizar() {
             <th>${valor_vuelo}</th>
             <th>${valor_transporte}</th>
             <th>${total}</th>
+            <th><button onclick="deleteTareaCoti('${dest}')" >Eliminar</button><br><button onclick="editarCoti('${dest}')">Editar</button></th>
 
             </tr>
          
